@@ -1,12 +1,11 @@
 package parcial1.varianteb;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Random;
 
 public class Caja {
 
-    // Solución ACTUAL (lenta)
+    // la lenta q nos dio el profe
     public static boolean hayComprobantesRepetidosPorPares(int[] comprobantes) {
         for (int a = 0; a < comprobantes.length; a++) {
             for (int b = a + 1; b < comprobantes.length; b++) {
@@ -18,21 +17,26 @@ public class Caja {
         return false;
     }
 
-// TU CURA: O(n) utilizando un HashSet, sin modificar la lista original
+    // mi cura usando hashset para q sea O(n) y no muera
     public static boolean hayComprobantesRepetidosCurado(int[] comprobantes) {
         if (comprobantes == null || comprobantes.length <= 1) {
             return false;
         }
-        HashSet<Integer> vistos = new HashSet<>();
-        for (int comp : comprobantes) {
-            if (!vistos.add(comp)) {
+        
+        HashSet<Integer> vistos = new HashSet<Integer>();
+        
+        for (int i = 0; i < comprobantes.length; i++) {
+            int actual = comprobantes[i];
+            if (vistos.contains(actual)) {
                 return true; 
             }
+            vistos.add(actual);
         }
+        
         return false;
     }
 
-// El PEOR CASO para ambas: 
+    // generador para el peor caso sin repetir
     public static int[] generarSinRepetidos(int n, int semilla) {
         int[] datos = new int[n];
         for (int i = 0; i < n; i++) {
@@ -41,81 +45,73 @@ public class Caja {
         Random azar = new Random(semilla);
         for (int i = n - 1; i > 0; i--) {
             int k = azar.nextInt(i + 1);
-            int temp = datos[i];
+            int tmp = datos[i];
             datos[i] = datos[k];
-            datos[k] = temp;
+            datos[k] = tmp;
         }
         return datos;
     }
 }
-
 class Programa {
     private static final Object[][] CASOS = {
-        {new int[]{ 1010, 1003, 1009, 1003, 1005 }, true,  "repetido en el medio"},
-        {new int[]{ 1010, 1003, 1009, 1004, 1005 }, false, "sin repetidos"},
-        {new int[]{ },                          false, "lista vacía"},
-        {new int[]{ 1008 },                         false, "un solo elemento"},
-        {new int[]{ 1004, 1001, 1002, 1006, 1004 }, true,  "repetido en el extremos"},
+    {new int[]{ 1010, 1003, 1009, 1003, 1005 }, true,  "repetido en el medio"},
+    {new int[]{ 1010, 1003, 1009, 1004, 1005 }, false, "sin repetidos"},
+    {new int[]{ },                          false, "lista vacía"},
+    {new int[]{ 1008 },                         false, "un solo elemento"},
+    {new int[]{ 1004, 1001, 1002, 1006, 1004 }, true,  "repetido en los extremos"},
     };
 
     public static void main(String[] args) {
-    // Validación de casos
-        for (Object[] caso : CASOS) {
-            int[] datos = (int[]) caso[0];
-            boolean esperado = (boolean) caso[1];
-            String etiqueta = (String) caso[2];
+        // probando q pasen los 5 casos
+        for (int x = 0; x < CASOS.length; x++) {
+            int[] datos = (int[]) CASOS[x][0];
+            boolean esperado = (boolean) CASOS[x][1];
+            String que = (String) CASOS[x][2];
 
             boolean lenta = Caja.hayComprobantesRepetidosPorPares(datos);
             boolean curada = Caja.hayComprobantesRepetidosCurado(datos);
 
-            System.out.printf("%-26s esperado %-5s · por pares %-5s · tu cura %-5s%n",
-                    etiqueta, esperado, lenta, curada);
+            System.out.println("caso: " + que + " | esp: " + esperado + " | lenta: " + lenta + " | cura: " + curada);
         }
-
-        // Protocolo de Medición para P1.2
-        // Elige un n adecuado para que la solución lenta tarde entre 0.5 y 20 segundos
-        // Para Java, n = 30000 suele tardar unos segundos con O(n^2). Ajusta si es necesario
+        // mediciones 
         int nBase = 15000; 
         int[] tamanios = { nBase, nBase * 2, nBase * 4, nBase * 8 };
-
-        System.out.println("\n--- MEDICIÓN DE RENDIMIENTO (Peor caso: sin repetidos) ---");
-        System.out.printf("%-10s | %-18s | %-18s | %-15s%n", "Tamaño (n)", "Lenta Prom (ms)", "Cura Prom (ms)", "Factor Lenta (xn)");
-
-        long tiempoLentoAnterior = -1;
-
-        for (int n : tamanios) {
+        System.out.println("\n--- mediciones de rendimiento ---");
+        long tiempoLentoAnt = -1;
+        for (int i = 0; i < tamanios.length; i++) {
+            int n = tamanios[i];
             int[] datos = Caja.generarSinRepetidos(n, 77);
 
-            // 1 Calentamiento 
+            // calentamiento
             Caja.hayComprobantesRepetidosPorPares(datos);
             Caja.hayComprobantesRepetidosCurado(datos);
 
-            // 2 Tres corridas medidas para la lenta
-            long sumaLenta = 0;
-            for (int i = 0; i < 3; i++) {
-                long inicio = System.nanoTime();
+            // 3 corridas lenta
+            long totalLenta = 0;
+            for (int c = 0; c < 3; c++) {
+                long ini = System.nanoTime();
                 Caja.hayComprobantesRepetidosPorPares(datos);
-                sumaLenta += (System.nanoTime() - inicio);
+                totalLenta += (System.nanoTime() - ini);
             }
-            long promLentaMs = (sumaLenta / 3) / 1_000_000;
+            long promLenta = (totalLenta / 3) / 1_000_000;
 
-            // 3 Tres corridas medidas para la cura
-            long sumaCura = 0;
-            for (int i = 0; i < 3; i++) {
-                long inicio = System.nanoTime();
+            // 3 corridas cura
+            long totalCura = 0;
+            for (int c = 0; c < 3; c++) {
+                long ini = System.nanoTime();
                 Caja.hayComprobantesRepetidosCurado(datos);
-                sumaCura += (System.nanoTime() - inicio);
+                totalCura += (System.nanoTime() - ini);
             }
-            long promCuraMs = (sumaCura / 3) / 1_000_000;
+            long promCura = (totalCura / 3) / 1_000_000;
 
-            String factorStr = "-";
-            if (tiempoLentoAnterior > 0) {
-                double factor = (double) promLentaMs / tiempoLentoAnterior;
-                factorStr = String.format("%.2fx", factor);
+            String factor = "-";
+            if (tiempoLentoAnt > 0) {
+                double f = (double) promLenta / tiempoLentoAnt;
+                factor = f + "";
+                if(factor.length() > 4) factor = factor.substring(0, 4) + "x";
             }
-            tiempoLentoAnterior = promLentaMs == 0 ? 1 : promLentaMs;
-
-            System.out.printf("%-10d | %-18d | %-18d | %-15s%n", n, promLentaMs, promCuraMs, factorStr);
+            tiempoLentoAnt = promLenta == 0 ? 1 : promLenta;
+            System.out.println("n=" + n + " | lenta=" + promLenta + "ms | cura=" + promCura + "ms | factor=" + factor);
         }
     }
 }
