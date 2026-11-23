@@ -1,95 +1,77 @@
-Inventario de operaciones – Zapatería mayorista
 
-1. Descripción del caso
 
-El negocio es una zapatería dedicada a la comercialización de calzados femeninos al por mayor. Entre sus productos se encuentran tacos, botas, zapatos escolares, sandalias, mocasines y otros modelos.
+# Inventario de operaciones – Zapatería mayorista
 
-Actualmente, el negocio no cuenta con un sistema informático para gestionar sus operaciones. El registro de clientes, ventas, deudas y pagos a trabajadores se realiza de manera manual.
+## 1. Descripción del caso
 
-El objetivo es analizar las operaciones que necesita el negocio y determinar qué estructuras de datos y algoritmos permitirían administrarlas de manera eficiente.
+El negocio es una zapatería dedicada a la venta de calzados femeninos al por mayor. Entre sus productos se encuentran tacos, botas, zapatos escolares, sandalias, mocasines y otros modelos.
 
-2. Datos que maneja el negocio
+Actualmente, el negocio no cuenta con un sistema informático para gestionar sus operaciones. El control de clientes, ventas, deudas y pagos a trabajadores se realiza de manera manual.
 
-|Tipo de información|Cantidad aproximada|
-|-|-|
-|Modelos de zapatos|Menos de 100|
-|Ventas diarias|Entre 5 y 15|
-|Trabajadores|Más de 10|
-|Clientes|Cantidad variable|
-|Deudas|Cantidad variable|
-|Pagos a trabajadores|Según fechas de pago|
+El objetivo es analizar estas operaciones y determinar qué estructuras de datos y algoritmos permitirían administrarlas de manera eficiente.
 
-Información almacenada
+## 2. Datos que maneja el negocio
 
-&#x09;**Clientes:** nombre, teléfono, dirección y registro de compras.
+| Tipo de información | Cantidad aproximada |
 
-&#x09;**Ventas:** número de venta, fecha, cliente, productos, cantidades y monto total.
+| Modelos de zapatos | Menos de 100 |
+| Ventas diarias | Entre 5 y 15 |
+| Trabajadores | Más de 10 |
+| Clientes | Cantidad variable |
+| Deudas | Cantidad variable |
+| Pagos a trabajadores | Según fechas de pago |
 
-&#x09;**Deudas:** cliente, monto pendiente, fecha de origen y estado de la deuda.
+### Información almacenada
 
-&#x09;**Trabajadores:** código, nombre, cargo y sueldo.
+- Clientes: código, nombre, teléfono, dirección y registro de compras.
+- Ventas: número de venta, fecha, cliente, productos, cantidades y monto total.
+- Deudas: cliente, monto pendiente, fecha de origen y estado de la deuda.
+- Trabajadores: código, nombre, cargo y sueldo.
+- Pagos: trabajador, monto pagado, fecha y concepto.
 
-&#x09;**Pagos:** trabajador, monto pagado, fecha y concepto.
+## 3. Operaciones que realiza el negocio
 
-## 3\. Operaciones que realiza el negocio
+| Operación | Descripción |
+|---|---|
+| Buscar por clave | Encontrar un cliente utilizando su código. |
+| Insertar | Registrar un nuevo cliente en el sistema. |
+| Borrar | Eliminar un registro de cliente que ya no corresponda y no tenga deudas pendientes. |
+| Buscar el menor | Encontrar al cliente que tenga la deuda más pequeña. |
+| Buscar el siguiente | Encontrar al siguiente cliente según su código. |
+| Buscar por rango | Mostrar clientes cuyas deudas estén entre 500 y 1500 Bs. |
+| Recorrer en orden | Mostrar todos los clientes ordenados por su código. |
+| Registrar venta | Guardar una nueva venta mayorista. |
+| Registrar deuda | Guardar el monto pendiente de un cliente. |
+| Registrar abono | Actualizar una deuda cuando el cliente realiza un pago parcial. |
+| Consultar historial | Revisar las compras anteriores de un cliente. |
+| Registrar pago | Guardar un pago realizado a un trabajador. |
+| Consultar pagos | Revisar los pagos realizados a cada trabajador. |
 
-|Operación|Descripción|
-|-|-|
-|Buscar cliente|Encontrar un cliente por su nombre o código.|
-|Registrar cliente|Agregar un nuevo cliente al sistema.|
-|Registrar venta|Guardar una nueva venta mayorista.|
-|Consultar historial|Mostrar las compras anteriores de un cliente.|
-|Registrar deuda|Guardar el monto que un cliente tiene pendiente.|
-|Buscar deudores|Encontrar clientes que todavía tienen deudas.|
-|Registrar abono|Actualizar una deuda cuando el cliente realiza un pago parcial.|
-|Consultar deuda|Conocer cuánto debe un cliente.|
-|Registrar trabajador|Agregar los datos de un nuevo trabajador.|
-|Registrar pago|Guardar un pago realizado a un trabajador.|
-|Consultar pagos|Revisar los pagos realizados a cada trabajador.|
-|Recorrer registros|Mostrar clientes, deudas o pagos registrados.|
-|Buscar mayor deuda|Encontrar al cliente con la deuda más elevada.|
-|Buscar menor deuda|Encontrar al cliente con la deuda más pequeña.|
+## 4. Frecuencia de las operaciones
 
-## 4\. Frecuencia de las operaciones
+Las siguientes frecuencias son estimaciones iniciales basadas en el funcionamiento del negocio.
 
-Las siguientes frecuencias son estimaciones iniciales que deberán comprobarse observando el funcionamiento real del negocio.
+| Operación | Frecuencia estimada |
+|---|---|
+| Buscar clientes | Muchas |
+| Registrar ventas | Muchas |
+| Consultar deudas | Muchas |
+| Registrar abonos | Algunas |
+| Registrar clientes | Pocas |
+| Consultar historial de compras | Algunas |
+| Registrar pagos a trabajadores | Algunas |
+| Buscar el menor o el siguiente | Pocas |
+| Buscar por rango | Pocas |
+| Borrar clientes | Muy pocas |
 
-|Operación|Frecuencia estimada|
-|-|-|
-|Buscar clientes|Muchas|
-|Registrar ventas|Muchas|
-|Consultar deudas|Muchas|
-|Registrar abonos|Algunas|
-|Registrar clientes|Pocas|
-|Registrar trabajadores|Muy pocas|
-|Registrar pagos a trabajadores|Algunas|
-|Consultar historial de compras|Algunas|
-|Buscar mayor o menor deuda|Pocas|
+## 5. Operaciones más importantes
 
-## 5\. Estructuras de datos propuestas
+Las operaciones que considero más importantes para el negocio son la búsqueda de clientes, el registro de ventas y la consulta de deudas, porque se relacionan directamente con la atención a los compradores y el control del dinero.
 
-|Estructura|Operaciones donde se utilizaría|Ventaja|
-|-|-|-|
-|Tabla hash|Buscar clientes por código y consultar trabajadores|Búsqueda rápida en promedio.|
-|Lista enlazada|Guardar el historial de pagos y abonos|Permite agregar nuevos registros fácilmente.|
-|Árbol AVL|Organizar clientes por monto de deuda|Permite buscar y recorrer los registros ordenadamente.|
-|Arreglo|Mostrar los registros de ventas y realizar recorridos|Permite acceder a los elementos por posición.|
+También es importante registrar los abonos y los pagos a trabajadores para mantener un mejor control de las cuentas del negocio.
 
-## 6\. Análisis de eficiencia
+## 6. Conclusión
 
-&#x20;   **Tabla hash:** permite buscar clientes o trabajadores en tiempo promedio O(1), utilizando su código como clave.
+La zapatería necesita organizar principalmente la información de sus clientes, ventas, deudas y pagos. Actualmente estas actividades se realizan manualmente, por lo que un sistema informático ayudaría a mantener los registros ordenados y facilitaría las consultas.
 
-&#x20;   **Lista enlazada:** permite insertar un nuevo pago al inicio en O(1), aunque buscar un pago específico requiere recorrer los registros.
-
-&#x20;   **Árbol AVL:** permite buscar, insertar y eliminar registros en O(log n), manteniendo los datos ordenados.
-
-&#x20;   **Arreglo:** permite acceder a una posición específica en O(1), pero buscar un registro por su contenido puede requerir O(n).
-
-## 7\. Conclusión
-
-La zapatería necesita mejorar principalmente la administración de sus clientes, las deudas y los pagos a trabajadores.
-
-Mediante el análisis de las operaciones se puede observar que una tabla hash sería conveniente para las búsquedas frecuentes, mientras que una lista enlazada podría facilitar el registro de pagos y movimientos. Por otra parte, un árbol AVL permitiría organizar y consultar las deudas de los clientes de manera ordenada.
-
-La elección de estas estructuras busca reducir el tiempo necesario para realizar las operaciones más frecuentes y facilitar la futura implementación de un sistema informático para el negocio.
-
+El análisis de estas operaciones permitirá elegir estructuras de datos que reduzcan el tiempo de búsqueda y mejoren la administración del negocio.
