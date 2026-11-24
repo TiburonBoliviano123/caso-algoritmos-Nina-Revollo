@@ -1,17 +1,16 @@
-
 <?php
 
-//Cantidad de clientes que vamos a probar
+// Cantidad de clientes que vamos a probar
 $tamanos = [1000, 2000, 4000, 8000];
 
-//Cantidad de busquedas que se realizaran en cada prueba
+// Cantidad de busquedas por prueba
 $repeticiones = 10000;
 
-//Funcion para buscar un cliente recorriendo la lista
-function busquedaLineal($clientes, $codigo)
+// Busqueda lineal utilizando el CI del cliente
+function busquedaLineal($clientes, $ci)
 {
     foreach ($clientes as $cliente) {
-        if ($cliente['codigo'] === $codigo) {
+        if ($cliente['ci'] === $ci) {
             return $cliente;
         }
     }
@@ -19,14 +18,14 @@ function busquedaLineal($clientes, $codigo)
     return null;
 }
 
-//Funcion para buscar un cliente usando una tabla hash
-function busquedaHash($clientesHash, $codigo)
+// Busqueda mediante una tabla hash utilizando el CI
+function busquedaHash($clientesHash, $ci)
 {
-    return $clientesHash[$codigo] ?? null;
+    return $clientesHash[$ci] ?? null;
 }
 
-echo "COMPARACION DE BUSQUEDA DE CLIENTES\n";
-echo "----------------------------------\n\n";
+echo "COMPARACION DE BUSQUEDA DE CLIENTES POR CI\n";
+echo "------------------------------------------\n\n";
 
 echo str_pad("Clientes", 12);
 echo str_pad("Lineal (ms)", 18);
@@ -38,76 +37,64 @@ foreach ($tamanos as $cantidad) {
     $clientes = [];
     $clientesHash = [];
 
-    // Generamos clientes de prueba
+    // Generamos clientes ficticios
     for ($i = 1; $i <= $cantidad; $i++) {
 
+        $ci = "800" . str_pad($i, 7, "0", STR_PAD_LEFT);
+
         $cliente = [
-            'codigo' => $i,
-            'nombre' => 'Cliente ' . $i
+            'ci' => $ci,
+            'nombre' => 'Cliente ' . $i,
+            'telefono' => '70000000'
         ];
 
         $clientes[] = $cliente;
-        $clientesHash[$i] = $cliente;
+        $clientesHash[$ci] = $cliente;
     }
 
-    // Buscamos codigos que existen en la estructura
-    $codigos = [];
+    // Preparamos las busquedas
+    $cis = [];
 
     for ($i = 0; $i < $repeticiones; $i++) {
-        $codigos[] = rand(1, $cantidad);
+        $posicion = rand(1, $cantidad);
+
+        $cis[] = "800" . str_pad($posicion, 7, "0", STR_PAD_LEFT);
     }
 
-    // Calentamiento: ejecutamos ambos metodos una vez
-    foreach ($codigos as $codigo) {
-        busquedaLineal($clientes, $codigo);
-        busquedaHash($clientesHash, $codigo);
+    // Calentamiento de ambos metodos
+    foreach ($cis as $ci) {
+        busquedaLineal($clientes, $ci);
+        busquedaHash($clientesHash, $ci);
     }
 
-    // Medicion de busqueda lineal
-    $inicio = microtime(true);
+    $totalLineal = 0;
+    $totalHash = 0;
 
-    foreach ($codigos as $codigo) {
-        busquedaLineal($clientes, $codigo);
-    }
+    // Realizamos tres mediciones
+    for ($r = 0; $r < 3; $r++) {
 
-    $fin = microtime(true);
-    $tiempoLineal = ($fin - $inicio) * 1000;
-
-    // Medicion de busqueda hash
-    $inicio = microtime(true);
-
-    foreach ($codigos as $codigo) {
-        busquedaHash($clientesHash, $codigo);
-    }
-
-    $fin = microtime(true);
-    $tiempoHash = ($fin - $inicio) * 1000;
-
-    // Repetimos tres veces y calculamos el promedio
-    $totalLineal = $tiempoLineal;
-    $totalHash = $tiempoHash;
-
-    for ($r = 1; $r < 3; $r++) {
-
+        // Medicion de busqueda lineal
         $inicio = microtime(true);
 
-        foreach ($codigos as $codigo) {
-            busquedaLineal($clientes, $codigo);
+        foreach ($cis as $ci) {
+            busquedaLineal($clientes, $ci);
         }
 
         $fin = microtime(true);
         $totalLineal += ($fin - $inicio) * 1000;
 
+        // Medicion de busqueda hash
         $inicio = microtime(true);
 
-        foreach ($codigos as $codigo) {
-            busquedaHash($clientesHash, $codigo);
+        foreach ($cis as $ci) {
+            busquedaHash($clientesHash, $ci);
         }
 
         $fin = microtime(true);
         $totalHash += ($fin - $inicio) * 1000;
     }
 
+    // Calculamos los promedios
     $promedioLineal = $totalLineal / 3;
     $promedioHash = $totalHash / 3;
 
@@ -118,5 +105,4 @@ foreach ($tamanos as $cantidad) {
 }
 
 echo "\nPrueba finalizada.\n";
-
 ?>

@@ -1,16 +1,16 @@
+Inventario de operaciones – Zapatería mayorista
 
+1. Descripción del caso
 
-# Inventario de operaciones – Zapatería mayorista
+El negocio es una zapatería dedicada a la venta de calzados femeninos al por mayor. Entre sus productos se encuentran tacones, botas, zapatos escolares, sandalias, mocasines y otros modelos.
 
-## 1. Descripción del caso
+Actualmente, el registro de clientes, pedidos y deudas se realiza manualmente. La información de las deudas se anota en cuadernos y una encargada es responsable de registrar y controlar los pagos.
 
-El negocio es una zapatería dedicada a la venta de calzados femeninos al por mayor. Entre sus productos se encuentran tacos, botas, zapatos escolares, sandalias, mocasines y otros modelos.
+Cuando se necesita consultar cuánto debe un cliente, la encargada debe buscar sus datos entre las anotaciones. Esta búsqueda suele tardar aproximadamente un minuto.
 
-Actualmente, el negocio no cuenta con un sistema informático para gestionar sus operaciones. El control de clientes, ventas, deudas y pagos a trabajadores se realiza de manera manual.
+El objetivo es analizar estas operaciones y determinar qué estructuras de datos permitirían organizar la información y realizar las consultas de manera más eficiente.
 
-El objetivo es analizar estas operaciones y determinar qué estructuras de datos y algoritmos permitirían administrarlas de manera eficiente.
-
-## 2. Datos que maneja el negocio
+2. Datos que maneja el negocio
 
 | Tipo de información | Cantidad aproximada |
 
@@ -21,57 +21,75 @@ El objetivo es analizar estas operaciones y determinar qué estructuras de datos
 | Deudas | Cantidad variable |
 | Pagos a trabajadores | Según fechas de pago |
 
-### Información almacenada
+Información de los clientes
 
-- Clientes: código, nombre, teléfono, dirección y registro de compras.
+Para registrar y controlar los pedidos y las deudas se utilizan los siguientes datos:
+
+- Nombre del cliente.
+- Número de teléfono.
+- CI.
+- Tipo de pedido.
+- Fecha del pedido.
+- Monto total.
+- Monto pagado.
+- Saldo pendiente.
+- Estado de la deuda: cancelado o debe.
+
+El CI se utilizará como identificador del cliente para realizar búsquedas.
+
+Otra información del negocio
+
 - Ventas: número de venta, fecha, cliente, productos, cantidades y monto total.
-- Deudas: cliente, monto pendiente, fecha de origen y estado de la deuda.
 - Trabajadores: código, nombre, cargo y sueldo.
-- Pagos: trabajador, monto pagado, fecha y concepto.
+- Pagos a trabajadores: trabajador, monto pagado, fecha y concepto.
 
-## 3. Operaciones que realiza el negocio
+3. Operaciones que realiza el negocio
 
 | Operación | Descripción |
-|---|---|
-| Buscar por clave | Encontrar un cliente utilizando su código. |
-| Insertar | Registrar un nuevo cliente en el sistema. |
-| Borrar | Eliminar un registro de cliente que ya no corresponda y no tenga deudas pendientes. |
-| Buscar el menor | Encontrar al cliente que tenga la deuda más pequeña. |
-| Buscar el siguiente | Encontrar al siguiente cliente según su código. |
+
+| Buscar por clave | Encontrar un cliente utilizando su CI. |
+| Insertar | Registrar un nuevo cliente. |
+| Borrar | Eliminar un registro de cliente cuando ya no corresponda y no tenga deudas pendientes. |
+| Buscar el menor | Encontrar al cliente con el menor saldo pendiente. |
+| Buscar el siguiente | Encontrar el siguiente cliente según el orden establecido por su saldo y CI. |
 | Buscar por rango | Mostrar clientes cuyas deudas estén entre 500 y 1500 Bs. |
-| Recorrer en orden | Mostrar todos los clientes ordenados por su código. |
+| Recorrer en orden | Mostrar los clientes ordenados por saldo pendiente y CI. |
 | Registrar venta | Guardar una nueva venta mayorista. |
-| Registrar deuda | Guardar el monto pendiente de un cliente. |
-| Registrar abono | Actualizar una deuda cuando el cliente realiza un pago parcial. |
-| Consultar historial | Revisar las compras anteriores de un cliente. |
+| Registrar deuda | Registrar el saldo pendiente de un cliente. |
+| Registrar abono | Actualizar el saldo cuando el cliente realiza un pago parcial. |
+| Consultar historial | Revisar los pedidos y pagos anteriores de un cliente. |
 | Registrar pago | Guardar un pago realizado a un trabajador. |
 | Consultar pagos | Revisar los pagos realizados a cada trabajador. |
 
-## 4. Frecuencia de las operaciones
+Para las operaciones de mínimo, siguiente, rango y recorrido en orden se considera un ordenamiento por saldo pendiente y, en caso de empate, por CI.
 
-Las siguientes frecuencias son estimaciones iniciales basadas en el funcionamiento del negocio.
+4. Frecuencia de las operaciones
+
+Las siguientes frecuencias son estimaciones basadas en el funcionamiento del negocio.
 
 | Operación | Frecuencia estimada |
-|---|---|
+
 | Buscar clientes | Muchas |
 | Registrar ventas | Muchas |
 | Consultar deudas | Muchas |
 | Registrar abonos | Algunas |
 | Registrar clientes | Pocas |
-| Consultar historial de compras | Algunas |
+| Consultar historial de pedidos | Algunas |
 | Registrar pagos a trabajadores | Algunas |
 | Buscar el menor o el siguiente | Pocas |
 | Buscar por rango | Pocas |
 | Borrar clientes | Muy pocas |
 
-## 5. Operaciones más importantes
+5. Operaciones más importantes
 
-Las operaciones que considero más importantes para el negocio son la búsqueda de clientes, el registro de ventas y la consulta de deudas, porque se relacionan directamente con la atención a los compradores y el control del dinero.
+Las operaciones más importantes para el negocio son la búsqueda de clientes mediante su CI, el registro de pedidos y la consulta de deudas.
 
-También es importante registrar los abonos y los pagos a trabajadores para mantener un mejor control de las cuentas del negocio.
+Estas actividades se relacionan directamente con la atención a los compradores y el control del dinero.
 
-## 6. Conclusión
+También es importante registrar los abonos y mantener un historial de pagos para conocer cuánto ha pagado cada cliente y cuánto dinero todavía debe.
 
-La zapatería necesita organizar principalmente la información de sus clientes, ventas, deudas y pagos. Actualmente estas actividades se realizan manualmente, por lo que un sistema informático ayudaría a mantener los registros ordenados y facilitaría las consultas.
+6. Conclusión
 
-El análisis de estas operaciones permitirá elegir estructuras de datos que reduzcan el tiempo de búsqueda y mejoren la administración del negocio.
+La zapatería necesita organizar principalmente la información de sus clientes, pedidos, deudas y pagos. Actualmente, estas actividades se realizan manualmente, lo que dificulta encontrar rápidamente los datos de cada cliente.
+
+El uso de estructuras de datos adecuadas permitiría mejorar las búsquedas, mantener organizadas las deudas y facilitar el control de los pagos.
