@@ -1,12 +1,12 @@
 Análisis de estructuras de datos – Zapatería mayorista
 
-1. Introducción
+## 1. Introducción
 
 En la zapatería mayorista se manejan datos de clientes, pedidos, deudas, ventas y pagos a trabajadores. Actualmente, gran parte de esta información se registra manualmente, lo que dificulta realizar algunas consultas de manera rápida.
 
 Para mejorar la organización de los datos se propone utilizar diferentes estructuras de datos. Cada estructura se selecciona considerando las operaciones que se realizan con mayor frecuencia en el negocio.
 
-2. Estructuras de datos seleccionadas
+## 2. Estructuras de datos seleccionadas
 
 2.1. Tabla hash para los clientes
 
@@ -23,7 +23,7 @@ El CI funcionará como clave de búsqueda, permitiendo acceder directamente a la
 
 Esta estructura es adecuada porque la búsqueda de clientes es una de las operaciones más frecuentes del negocio.
 
-2.2. Lista enlazada para los abonos y pagos
+## 2.2. Lista enlazada para los abonos y pagos
 
 Se propone utilizar una lista enlazada para almacenar el historial de abonos realizados por los clientes y los pagos efectuados a los trabajadores.
 
@@ -40,7 +40,7 @@ La lista permitirá agregar nuevos movimientos sin necesidad de reorganizar todo
 
 Esta estructura resulta útil porque los movimientos se van registrando continuamente y es importante conservar su historial.
 
-2.3. Árbol AVL para organizar las deudas
+## 2.3. Árbol AVL para organizar las deudas
 
 Se propone utilizar un árbol AVL para organizar los clientes según el saldo pendiente de sus deudas.
 
@@ -77,16 +77,16 @@ Esta estructura permite mantener los registros organizados y acceder a ellos med
 
 El arreglo es adecuado porque el negocio registra diariamente nuevas ventas y necesita conservarlas para futuras consultas.
 
-3. Comparación de las estructuras
+## 3. Comparación de las estructuras
 
 | Estructura | Uso en el negocio | Operación principal | Complejidad promedio |
-|------------|
-| Tabla hash | Datos de clientes | Buscar por CI | O(1) |
+|---|---|---|---|
+| Tabla hash | Datos de clientes | Buscar por CI | O(1) promedio |
 | Lista enlazada | Abonos y pagos | Insertar movimientos | O(1) al inicio |
 | Árbol AVL | Deudas de clientes | Buscar y ordenar deudas | O(log n) |
 | Arreglo | Registro de ventas | Acceder por posición | O(1) |
 
-4. Justificación de la selección
+## 4. Justificación de la selección
 
 Las estructuras fueron seleccionadas considerando las necesidades y la frecuencia de las operaciones del negocio.
 
@@ -98,7 +98,7 @@ El árbol AVL facilita la organización de las deudas y permite encontrar client
 
 Finalmente, el arreglo permite almacenar las ventas y acceder a sus registros mediante posiciones.
 
-5. Conclusión
+## 5. Conclusión
 
 No existe una única estructura de datos que sea la mejor para todas las operaciones del negocio. Cada una tiene características diferentes que permiten resolver necesidades específicas.
 

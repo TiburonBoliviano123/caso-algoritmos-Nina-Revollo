@@ -1,4 +1,4 @@
-H1 – Muestra de datos: Control de deudas
+## H1 – Muestra de datos: Control de deudas
 
 Los siguientes registros son datos ficticios utilizados como ejemplo del formato de información que maneja el negocio.
 
@@ -25,4 +25,4 @@ Los siguientes registros son datos ficticios utilizados como ejemplo del formato
 | 19 | Mónica Cabrera | 70000019 | 8000019 | Zapatos escolares | 19/11/2026 | 920 | 920 | 0 | Cancelado |
 | 20 | Laura Quispe | 70000020 | 8000020 | Mocasines | 20/11/2026 | 1150 | 650 | 500 | Debe |
 
-//Nota: El saldo pendiente se obtiene restando el monto pagado al monto total del pedido. Cuando el saldo es cero, el estado de la deuda es "Cancelado"; cuando existe un saldo pendiente, el estado es "Debe".
+**Nota:** El saldo pendiente se obtiene restando el monto pagado al monto total del pedido. Cuando el saldo es cero, el estado de la deuda es "Cancelado"; cuando existe un saldo pendiente, el estado es "Debe".

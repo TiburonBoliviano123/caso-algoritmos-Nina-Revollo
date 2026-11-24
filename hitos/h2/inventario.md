@@ -1,6 +1,6 @@
 Inventario de operaciones – Zapatería mayorista
 
-1. Descripción del caso
+## 1. Descripción del caso
 
 El negocio es una zapatería dedicada a la venta de calzados femeninos al por mayor. Entre sus productos se encuentran tacones, botas, zapatos escolares, sandalias, mocasines y otros modelos.
 
@@ -10,10 +10,10 @@ Cuando se necesita consultar cuánto debe un cliente, la encargada debe buscar s
 
 El objetivo es analizar estas operaciones y determinar qué estructuras de datos permitirían organizar la información y realizar las consultas de manera más eficiente.
 
-2. Datos que maneja el negocio
+## 2. Datos que maneja el negocio
 
 | Tipo de información | Cantidad aproximada |
-
+|---|---|
 | Modelos de zapatos | Menos de 100 |
 | Ventas diarias | Entre 5 y 15 |
 | Trabajadores | Más de 10 |
@@ -43,7 +43,7 @@ Otra información del negocio
 - Trabajadores: código, nombre, cargo y sueldo.
 - Pagos a trabajadores: trabajador, monto pagado, fecha y concepto.
 
-3. Operaciones que realiza el negocio
+## 3. Operaciones que realiza el negocio
 
 | Operación | Descripción |
 
@@ -63,7 +63,7 @@ Otra información del negocio
 
 Para las operaciones de mínimo, siguiente, rango y recorrido en orden se considera un ordenamiento por saldo pendiente y, en caso de empate, por CI.
 
-4. Frecuencia de las operaciones
+## 4. Frecuencia de las operaciones
 
 Las siguientes frecuencias son estimaciones basadas en el funcionamiento del negocio.
 
@@ -80,7 +80,7 @@ Las siguientes frecuencias son estimaciones basadas en el funcionamiento del neg
 | Buscar por rango | Pocas |
 | Borrar clientes | Muy pocas |
 
-5. Operaciones más importantes
+## 5. Operaciones más importantes
 
 Las operaciones más importantes para el negocio son la búsqueda de clientes mediante su CI, el registro de pedidos y la consulta de deudas.
 
@@ -88,7 +88,7 @@ Estas actividades se relacionan directamente con la atención a los compradores 
 
 También es importante registrar los abonos y mantener un historial de pagos para conocer cuánto ha pagado cada cliente y cuánto dinero todavía debe.
 
-6. Conclusión
+## 6. Conclusión
 
 La zapatería necesita organizar principalmente la información de sus clientes, pedidos, deudas y pagos. Actualmente, estas actividades se realizan manualmente, lo que dificulta encontrar rápidamente los datos de cada cliente.
 

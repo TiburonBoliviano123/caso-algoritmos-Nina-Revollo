@@ -1,6 +1,6 @@
-H3 – Estrategia de optimización para el almacén
+## H3 – Estrategia de optimización para el almacén
 
-1. Descripción del problema
+## 1. Descripción del problema
 En la zapatería mayorista se manejan diferentes modelos y cantidades de calzados. Para organizar mejor el almacenamiento, se plantea el problema de seleccionar qué lotes de zapatos deben guardarse cuando existe una capacidad limitada.
 
 Para este caso se considera un almacén con una capacidad máxima de 30 cajas. Cada lote tiene una cantidad de cajas que ocupa espacio y un valor económico asociado.
@@ -10,9 +10,9 @@ El objetivo es seleccionar los lotes que permitan obtener el mayor valor económ
 Este problema se puede representar mediante el problema de la mochila (Knapsack) de tipo 0/1, porque cada lote se selecciona completo o se descarta.
 
 
-2. Estrategias analizadas
+## 2. Estrategias analizadas
 
-2.1. Estrategia voraz (Greedy)
+## 2.1. Estrategia voraz (Greedy)
 
 Una estrategia voraz consiste en tomar decisiones locales buscando la mejor opción en cada paso.
 
@@ -47,7 +47,7 @@ Sin embargo, seleccionando los lotes A y B se obtiene:
 Por lo tanto, la estrategia voraz no obtiene el mejor resultado en este ejemplo.
 
 
-2.2. Programación dinámica
+## 2.2. Programación dinámica
 La programación dinámica es adecuada para este problema porque permite dividirlo en subproblemas más pequeños y aprovechar los resultados que ya fueron calculados.
 
 Se utiliza una tabla para almacenar la mejor solución posible considerando diferentes cantidades de lotes y capacidades disponibles.
@@ -73,7 +73,7 @@ Si el lote cabe, se elige la mejor alternativa entre incluirlo o dejarlo fuera:
 De esta manera se obtiene la combinación de lotes que proporciona el mayor valor económico sin superar la capacidad del almacén.
 
 
-3. Propiedades de la programación dinámica
+## 3. Propiedades de la programación dinámica
 La programación dinámica es apropiada porque el problema presenta dos propiedades importantes:
 
     Subestructura óptima:
@@ -85,7 +85,7 @@ La solución óptima para una determinada cantidad de lotes y capacidad puede co
 Al calcular las diferentes combinaciones de lotes y capacidades, algunos subproblemas se repiten. La tabla permite guardar los resultados y reutilizarlos sin tener que calcularlos nuevamente.
 
 
-4. Complejidad
+## 4. Complejidad
 Para el problema de la mochila 0/1 utilizando programación dinámica:
 
 - Tiempo: O(n × C).
@@ -96,9 +96,9 @@ Donde:
 - `n` representa la cantidad de lotes.
 - `C` representa la capacidad máxima del almacén.
 
-En cambio, la fuerza bruta debe evaluar las posibles combinaciones de lotes, por lo que su complejidad es O(2ⁿ).
+En cambio, la fuerza bruta evalúa las 2ⁿ combinaciones posibles y recorre los n lotes para calcular el peso y el valor de cada combinación. Por ello, la implementación utilizada tiene una complejidad temporal de O(n × 2ⁿ).
 
-5. Estrategia seleccionada
+## 5. Estrategia seleccionada
 
 Se selecciona la programación dinámica porque permite encontrar la combinación óptima de lotes que maximiza el valor económico sin superar la capacidad del almacén.
 
@@ -106,7 +106,7 @@ La estrategia voraz puede ser más sencilla, pero no garantiza obtener la mejor 
 
 Por esta razón, la programación dinámica resulta más adecuada para resolver el problema planteado.
 
-6. Conclusión
+## 6. Conclusión
 
 El problema de organizar los lotes de zapatos dentro de un almacén con capacidad limitada puede resolverse mediante programación dinámica.
 
